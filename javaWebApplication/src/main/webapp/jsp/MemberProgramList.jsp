@@ -51,7 +51,7 @@
 			<td><%=user.getPrereq()%></td>
 			<td><form action="<%=JWAView.MemberPLCTL%>" method="post">
 					<input type="submit" class="btn btn-primary" name="registerButton"
-						value=<%=user.getId()%>><
+						value=<%=user.getId()%>>
 				</form></td>
 		</tr>
 

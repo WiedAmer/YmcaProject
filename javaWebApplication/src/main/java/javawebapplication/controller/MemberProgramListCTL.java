@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import javawebapplication.model.ProgramModel;
 import javawebapplication.model.RegisteredModel;
 import javawebapplication.bean.RegisterBean;
+import javawebapplication.bean.ProgramBean;
 import javawebapplication.utility.ServletUtility;
 
 /**
@@ -56,15 +57,16 @@ public class MemberProgramListCTL extends HttpServlet {
 		HttpSession session = request.getSession();
 		long curUserID = (long)session.getAttribute("userID");
 		user.setUserID((int)curUserID);
-		System.out.println((long)session.getAttribute("userID"));
-		user.setProgramID(Integer.parseInt(request.getParameter("registerButton")));
-		System.out.println(Integer.parseInt(request.getParameter("registerButton")));
+		int curProgram = (Integer.parseInt(request.getParameter("registerButton")));
+		user.setProgramID(curProgram);
+		ProgramBean programnow = ProgramModel.getProgram(curProgram);
+		System.out.println(programnow.getName());
 		long i = RegisteredModel.addUser(user);
 		if (i > 0) {
 			ServletUtility.setSuccessMessage("Program register sucessfully", request);
 		} else {
 			ServletUtility.setErrorMessage("Not intrested", request);
 		}
-		request.getRequestDispatcher(JWAView.MemberPLView).forward(request, response);
+		doGet(request, response);
 	}
 }

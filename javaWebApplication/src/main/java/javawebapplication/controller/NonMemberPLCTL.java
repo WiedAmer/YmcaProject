@@ -7,8 +7,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import javawebapplication.bean.RegisterBean;
 import javawebapplication.model.ProgramModel;
+import javawebapplication.model.RegisteredModel;
 import javawebapplication.utility.ServletUtility;
 /**
  * Servlet implementation class UserListCtl
@@ -43,6 +46,18 @@ public class NonMemberPLCTL extends HttpServlet {
    */
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     // TODO Auto-generated method stub
-    doGet(request, response);
+	    RegisterBean user = new RegisterBean();
+		HttpSession session = request.getSession();
+		long curUserID = (long)session.getAttribute("userID");
+		user.setUserID((int)curUserID);
+		user.setProgramID(Integer.parseInt(request.getParameter("registerButton")));
+		long i = RegisteredModel.addUser(user);
+		if (i > 0) {
+			ServletUtility.setSuccessMessage("Program register sucessfully", request);
+			
+		} else {
+			ServletUtility.setErrorMessage("Not intrested", request);
+		}
+		doGet(request, response);
   }
 }
