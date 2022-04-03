@@ -59,7 +59,7 @@ public class MemberProgramListCTL extends HttpServlet {
 		user.setUserID((int)curUserID);
 		int curProgram = (Integer.parseInt(request.getParameter("registerButton")));
 		user.setProgramID(curProgram);
-		ProgramBean programnow = ProgramModel.getProgram(curProgram);
+		ProgramBean programnow = RegisteredModel.getProgram(curProgram);
 		System.out.println(programnow.getName());
 		long i = RegisteredModel.addUser(user);
 		if (i > 0) {
