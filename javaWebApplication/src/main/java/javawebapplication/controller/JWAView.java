@@ -25,4 +25,10 @@ public interface JWAView {
 	 
 	public String NonMemberPLCTL = APP_CONTEXT + "/NonMemberPLCTL";
 	public String NonMemberPLView = PAGE_FOLDER +"/NonMemberPL.jsp";
+	
+	public String StaffPLCTL = APP_CONTEXT +"/StaffProgramListCTL";
+	public String StaffPLView = PAGE_FOLDER +"/StaffProgramList.jsp";
+	
+	public String RegisteredUserCTL = APP_CONTEXT +"/RegisteredUserCTL";
+	public String RegisteredUserView = PAGE_FOLDER +"/RegisteredUser.jsp";
 }

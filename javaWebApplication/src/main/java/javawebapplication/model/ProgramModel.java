@@ -60,6 +60,42 @@ public class ProgramModel {
     return i;
   }
   
+  public static long updateUser(ProgramBean user) {
+	   int i = 0;
+	   try {
+	     Connection conn = JDBCDataSource.getConnection();
+	     PreparedStatement stmt = conn.prepareStatement("update program set registered = ? where programID = ?");
+	     int j = user.getRegistered();
+	     user.setRegistered(j + 1);
+	     stmt.setInt(1, user.getRegistered());
+	     stmt.setLong(2, user.getId());
+	       i =     stmt.executeUpdate();
+	     
+	   } catch (Exception e) {
+	     // TODO Auto-generated catch block
+	     e.printStackTrace();
+	   }
+	   return i;
+	 }
+  
+  public static long decrementRegistered(ProgramBean user) {
+	   int i = 0;
+	   try {
+	     Connection conn = JDBCDataSource.getConnection();
+	     PreparedStatement stmt = conn.prepareStatement("update program set registered = ? where programID = ?");
+	     int j = user.getRegistered();
+	     user.setRegistered(j - 1);
+	     stmt.setInt(1, user.getRegistered());
+	     stmt.setLong(2, user.getId());
+	       i =     stmt.executeUpdate();
+	     
+	   } catch (Exception e) {
+	     // TODO Auto-generated catch block
+	     e.printStackTrace();
+	   }
+	   return i;
+	 }
+  
   public static List list() {
 	  ArrayList list=new ArrayList();
 	  Connection conn=null;

@@ -8,6 +8,7 @@ import java.util.List;
 
 import javawebapplication.bean.ProgramBean;
 import javawebapplication.bean.RegisterBean;
+import javawebapplication.bean.UserBean;
 import javawebapplication.utility.JDBCDataSource;
 
 //import jdk.nashorn.internal.ir.WhileNode;
@@ -62,25 +63,65 @@ public class RegisteredModel {
 	}
 
 	public static List registeredList(int userID) {
-    	 ArrayList list = new ArrayList();
-    	 Connection conn = null;
-    	 try {
-    	 conn = JDBCDataSource.getConnection();
-    	 //statement to return all program IDs that a user is currently registered for
-    	 PreparedStatement pstmt = conn.prepareStatement("select programID from registered_for where userID = ?");
-    	 pstmt.setInt(1, userID);
-    	 ResultSet rs = pstmt.executeQuery(); //this will be a result set with all program IDs
-    	 
-    	 while (rs.next()) {
-    	 ProgramBean program = (ProgramBean) getProgram(rs.getInt("programID"));
-    	 list.add(program);
-    	 }
-    	  } catch (Exception e) {
-    	 e.printStackTrace();
-    	  } finally {
-    	 JDBCDataSource.closeConnection(conn);
-    	  }
-    	 return list;
+		ArrayList list = new ArrayList();
+		Connection conn = null;
+		try {
+			conn = JDBCDataSource.getConnection();
+			// statement to return all program IDs that a user is currently registered for
+			PreparedStatement pstmt = conn.prepareStatement("select programID from registered_for where userID = ?");
+			pstmt.setInt(1, userID);
+			ResultSet rs = pstmt.executeQuery(); // this will be a result set with all program IDs
+
+			while (rs.next()) {
+				ProgramBean program = (getProgram(rs.getInt("programID")));
+				list.add(program);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCDataSource.closeConnection(conn);
+		}
+		return list;
 	}
-    	
+
+	public static List registeredUserList(int programID) {
+		ArrayList list = new ArrayList();
+		Connection conn = null;
+		try {
+			conn = JDBCDataSource.getConnection();
+			// statement to return all program IDs that a user is currently registered for
+			PreparedStatement pstmt = conn.prepareStatement("select userID from registered_for where programID = ?");
+			pstmt.setInt(1, programID);
+			ResultSet rs = pstmt.executeQuery(); // this will be a result set with all program IDs
+
+			while (rs.next()) {
+				UserBean user = (UserModel.getUser(rs.getInt("userID")));
+				list.add(user);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCDataSource.closeConnection(conn);
+		}
+		return list;
+	}
+
+	public static void removeRegistration(int userID, int programID) {
+		Connection conn = null;
+		try {
+			conn = JDBCDataSource.getConnection();
+			PreparedStatement stmt = conn.prepareStatement("delete from registered_for where userID = ? and programId = ?");
+			stmt.setInt(1, userID);
+			stmt.setInt(2, programID);
+			stmt.execute();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JDBCDataSource.closeConnection(conn);
+		}
+		return;
+	}
+
 }

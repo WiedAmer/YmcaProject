@@ -48,9 +48,9 @@
 			<td><%=user.getEndTime()%></td>
 			<td><%=user.getNonmemberPrice()%></td>
 			<td><%=user.getPrereq()%></td>
-			<td><form action="<%=JWAView.MemberPLCTL%>" method="post">
-					<input type="submit" class="btn btn-primary" name="registerButton"
-						value=<%=user.getId()%>>
+			<td><form action="<%=JWAView.NonMemberPLCTL%>" method="post">
+					<button type="submit" class="btn btn-primary" name="registerButton"
+						value=<%=user.getId()%>>Register</button>
 				</form></td>
 		</tr>
 		<%

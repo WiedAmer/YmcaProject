@@ -22,10 +22,10 @@
   <%if (userSession==null) {%>
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="jsp/Home.jsp">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="jsp/Home.jsp">Home<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="<%=JWAView.LoginCTL %>">Login</a>
+        <a class="nav-link" href="<%=JWAView.LoginCTL%>">Login</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="<%=JWAView.UserCTL %>">Registration</a>
@@ -41,7 +41,7 @@
         	<a class="nav-link" href="jsp/Home.jsp">Home <span class="sr-only">(current)</span></a>
       	</li>
       	<li class="nav-item">
-        	<a class="nav-link" href="<%=JWAView.ProgramListCTL %>">Programs</a>
+        	<a class="nav-link" href="<%=JWAView.StaffPLCTL %>">Programs</a>
       	</li>
       	<li class="nav-item">
         	<a class="nav-link" href="<%=JWAView.ProgramCTL %>">Program Registration</a>

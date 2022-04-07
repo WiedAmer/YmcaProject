@@ -57,14 +57,13 @@ public class UserModel {
 	    return i;
 	  }
 	
-	  public static UserBean  UserLogin(String login,String password) {
+	  public static UserBean  getUser(int userID) {
 		    Connection con;
 		    UserBean user = null;
 		    try {
 		      con = JDBCDataSource.getConnection();
-		      PreparedStatement stmt = con.prepareStatement("Select * from user where login=? and password = ?");
-		      stmt.setString(1,login);
-		      stmt.setString(2,password);
+		      PreparedStatement stmt = con.prepareStatement("Select * from user where userid=?");
+		      stmt.setInt(1,userID);
 		      ResultSet rs = stmt.executeQuery();
 		      if(rs.next()) {
 		        user = new UserBean();
@@ -87,6 +86,38 @@ public class UserModel {
 		    
 		    return user;
 		  }
+	  
+	  public static UserBean  UserLogin(String login, String password) {
+		    Connection con;
+		    UserBean user = null;
+		    try {
+		      con = JDBCDataSource.getConnection();
+		      PreparedStatement stmt = con.prepareStatement("Select * from user where login=? and password=?");
+		      stmt.setString(1,login);
+		      stmt.setString(2,password);
+		      ResultSet rs = stmt.executeQuery();
+		      if(rs.next()) {
+		        user = new UserBean();
+		        user.setId(rs.getLong("userID"));
+		        user.setFirstName(rs.getString("fname"));
+		        user.setLastName(rs.getString("lname"));
+		        user.setLogin(rs.getString("login"));
+		        user.setPassword(rs.getString("password"));
+		        user.setDob(rs.getDate("dob"));
+		        user.setMobileNo(rs.getString("mobile"));    
+		        user.setIsMember(rs.getInt("isMember"));
+		        user.setIsDeleted(rs.getInt("isDeleted"));
+		      }
+		      
+		    } catch (Exception e) {
+		      // TODO Auto-generated catch block
+		      e.printStackTrace();
+		    }
+		    
+		    return user;
+	  }
+	  
+	  
 	  
 	  
 }

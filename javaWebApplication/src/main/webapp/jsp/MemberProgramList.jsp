@@ -50,8 +50,8 @@
 			<td><%=user.getMemberPrice()%></td>
 			<td><%=user.getPrereq()%></td>
 			<td><form action="<%=JWAView.MemberPLCTL%>" method="post">
-					<input type="submit" class="btn btn-primary" name="registerButton"
-						value=<%=user.getId()%>>
+					<button type="submit" class="btn btn-primary" name="registerButton"
+						value=<%=user.getId()%>>Register</button>
 				</form></td>
 		</tr>
 
